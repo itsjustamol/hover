@@ -6,12 +6,18 @@ import Combine
 /// popover: appears at the cursor, never steals focus from the app you're in,
 /// and disappears when you click anywhere outside it.
 final class LookupPanel: NSPanel {
-    static let panelWidth: CGFloat = 440
-    private static let minHeight: CGFloat = 148
-    private static let maxHeight: CGFloat = 460
+    /// Width of the visible glass shapes.
+    static let contentWidth: CGFloat = 440
+    /// Transparent margin around the glass. Without it the shapes touch the
+    /// window boundary and the glass blur clamps at the edge, smearing the
+    /// backdrop into streaks. The margin gives the sampler headroom.
+    static let margin: CGFloat = 24
+    static var panelWidth: CGFloat { contentWidth + margin * 2 }
+    private static let minHeight: CGFloat = 148 + 48
+    private static let maxHeight: CGFloat = 460 + 48
     /// Header + divider + capsule gap + follow-up capsule + paddings
-    /// around the transcript.
-    private static let chromeHeight: CGFloat = 112
+    /// around the transcript + the transparent margin.
+    private static let chromeHeight: CGFloat = 112 + 48
 
     let model = LookupModel()
     var onDismiss: (() -> Void)?
@@ -86,9 +92,11 @@ final class LookupPanel: NSPanel {
         let screen = NSScreen.screens.first { NSMouseInRect(point, $0.frame, false) } ?? NSScreen.main
         let visible = screen?.visibleFrame ?? NSRect(x: 0, y: 0, width: 1440, height: 900)
 
-        // Below-right of the cursor, clamped to the screen.
-        var x = point.x - 20
-        var y = point.y - height - 10
+        // Below-right of the cursor, clamped to the screen. Offsets are
+        // relative to the *visible* glass edge, which sits `margin` inside
+        // the window frame.
+        var x = point.x - 20 - Self.margin
+        var y = point.y - height - 10 + Self.margin
         x = min(max(x, visible.minX + 8), visible.maxX - Self.panelWidth - 8)
         if y < visible.minY + 8 {
             y = min(point.y + 14, visible.maxY - height - 8)

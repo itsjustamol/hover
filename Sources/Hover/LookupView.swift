@@ -10,7 +10,8 @@ struct LookupView: View {
 
     var body: some View {
         chrome
-            .frame(width: LookupPanel.panelWidth, alignment: .topLeading)
+            .frame(width: LookupPanel.contentWidth, alignment: .topLeading)
+            .padding(LookupPanel.margin)
     }
 
     @ViewBuilder
