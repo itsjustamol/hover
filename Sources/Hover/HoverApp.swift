@@ -5,7 +5,7 @@ struct HoverApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
-        MenuBarExtra("Hover", systemImage: "text.magnifyingglass") {
+        MenuBarExtra("Hover", systemImage: "line.3.horizontal.circle") {
             Button("Look Up Selection    ⇧⌘C") {
                 appDelegate.performLookup()
             }

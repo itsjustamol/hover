@@ -77,7 +77,7 @@ struct LookupView: View {
 
     private var header: some View {
         HStack(spacing: 7) {
-            Image(systemName: "text.magnifyingglass")
+            Image(systemName: "line.3.horizontal.circle")
                 .font(.system(size: 12, weight: .semibold))
                 .foregroundStyle(.secondary)
             Text(model.title)
