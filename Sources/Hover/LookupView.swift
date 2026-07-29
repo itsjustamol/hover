@@ -99,7 +99,7 @@ struct LookupView: View {
             HStack(spacing: 4) {
                 Image(systemName: "xmark")
                     .font(.system(size: 8.5, weight: .bold))
-                Text("esc")
+                Text("ESC")
                     .font(.system(size: 10, weight: .semibold))
             }
             .foregroundStyle(.secondary)
