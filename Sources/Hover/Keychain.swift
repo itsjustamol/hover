@@ -3,19 +3,24 @@ import Security
 
 /// Stores the Claude API key as a generic password in the login keychain.
 enum Keychain {
-    private static let service = "com.amol.feather.claude-api-key"
-    /// Pre-rename service name — read once and migrate.
-    private static let legacyService = "com.amol.context.claude-api-key"
+    private static let service = "com.amol.hover.claude-api-key"
+    /// Pre-rename service names — read once and migrate.
+    private static let legacyServices = [
+        "com.amol.feather.claude-api-key",
+        "com.amol.context.claude-api-key",
+    ]
 
     static func read() -> String? {
         if let key = read(service: service) {
             return key
         }
-        // Migrate a key saved under the app's old name.
-        if let key = read(service: legacyService) {
-            save(key)
-            delete(service: legacyService)
-            return key
+        // Migrate a key saved under one of the app's old names.
+        for legacy in legacyServices {
+            if let key = read(service: legacy) {
+                save(key)
+                delete(service: legacy)
+                return key
+            }
         }
         return nil
     }

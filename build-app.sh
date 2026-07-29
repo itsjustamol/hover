@@ -1,17 +1,17 @@
 #!/bin/bash
-# Builds Feather.app and (optionally) installs it to /Applications.
+# Builds Hover.app and (optionally) installs it to /Applications.
 # Usage: ./build-app.sh [--install]
 set -euo pipefail
 cd "$(dirname "$0")"
 
 swift build -c release
 
-APP="Feather.app"
-BIN=".build/release/Feather"
+APP="Hover.app"
+BIN=".build/release/Hover"
 
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
-cp "$BIN" "$APP/Contents/MacOS/Feather"
+cp "$BIN" "$APP/Contents/MacOS/Hover"
 cp art/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 
 cat > "$APP/Contents/Info.plist" <<'PLIST'
@@ -19,10 +19,10 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleName</key>            <string>Feather</string>
-    <key>CFBundleDisplayName</key>     <string>Feather</string>
-    <key>CFBundleIdentifier</key>      <string>com.amol.feather</string>
-    <key>CFBundleExecutable</key>      <string>Feather</string>
+    <key>CFBundleName</key>            <string>Hover</string>
+    <key>CFBundleDisplayName</key>     <string>Hover</string>
+    <key>CFBundleIdentifier</key>      <string>com.amol.hover</string>
+    <key>CFBundleExecutable</key>      <string>Hover</string>
     <key>CFBundlePackageType</key>     <string>APPL</string>
     <key>CFBundleShortVersionString</key> <string>1.0</string>
     <key>CFBundleVersion</key>         <string>1</string>
@@ -45,7 +45,7 @@ echo "Signed as: ${IDENTITY:-ad-hoc}"
 echo "Built $APP"
 
 if [[ "${1:-}" == "--install" ]]; then
-    rm -rf "/Applications/Feather.app"
+    rm -rf "/Applications/Hover.app"
     cp -R "$APP" /Applications/
-    echo "Installed to /Applications/Feather.app"
+    echo "Installed to /Applications/Hover.app"
 fi

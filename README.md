@@ -1,4 +1,4 @@
-# Feather
+# Hover
 
 An inline AI look-up for macOS — like the built-in Dictionary popover (⌃⌘D),
 but answered by Claude. Select any word, name, code snippet, or error message
@@ -29,16 +29,16 @@ Requires Xcode command line tools with the macOS 26 SDK.
 
 ```sh
 ./build-app.sh --install
-open /Applications/Feather.app
+open /Applications/Hover.app
 ```
 
-Feather is a menu bar app (no Dock icon).
+Hover is a menu bar app (no Dock icon).
 
 ## Setup (one time)
 
 1. **API key** — menu bar icon → *Set Claude API Key…* (stored in your login
    keychain). An `ANTHROPIC_API_KEY` environment variable takes precedence.
-2. **Accessibility** — allow Feather under *System Settings → Privacy &
+2. **Accessibility** — allow Hover under *System Settings → Privacy &
    Security → Accessibility*, then relaunch. Required to read the selection.
 
 > `build-app.sh` signs with your Apple Development certificate when one is
@@ -52,10 +52,10 @@ Everything is code — small, single-purpose files:
 
 | What | Where |
 |---|---|
-| Model, system prompt, effort | `Sources/Feather/ClaudeClient.swift` |
-| Hotkey (default ⇧⌘C) | `Sources/Feather/AppDelegate.swift` |
-| Panel size, positioning, dismissal | `Sources/Feather/LookupPanel.swift` |
-| Popover UI / glass styling | `Sources/Feather/LookupView.swift` |
+| Model, system prompt, effort | `Sources/Hover/ClaudeClient.swift` |
+| Hotkey (default ⇧⌘C) | `Sources/Hover/AppDelegate.swift` |
+| Panel size, positioning, dismissal | `Sources/Hover/LookupPanel.swift` |
+| Popover UI / glass styling | `Sources/Hover/LookupView.swift` |
 
 Uses `claude-opus-5` with streaming and low effort for fast inline answers.
 
