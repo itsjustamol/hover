@@ -52,15 +52,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let mouse = NSEvent.mouseLocation
 
         guard AXIsProcessTrusted() else {
-            panel.show(query: "Context", at: mouse)
-            panel.model.fail("Context needs Accessibility access to read your selection. Enable Context in the settings pane that just opened, then quit and relaunch Context from the menu bar icon.")
+            panel.show(query: "Feather", at: mouse)
+            panel.model.fail("Feather needs Accessibility access to read your selection. Enable Feather in the settings pane that just opened, then quit and relaunch Feather from the menu bar icon.")
             NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!)
             return
         }
 
         guard let selection = SelectionReader.currentSelection(),
               !selection.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            panel.show(query: "Context", at: mouse)
+            panel.show(query: "Feather", at: mouse)
             panel.model.fail("No selection found. Select some text, then press ⇧⌘C.")
             return
         }

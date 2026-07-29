@@ -17,7 +17,7 @@ final class HotKeyCenter {
         callbacks[id] = callback
 
         var ref: EventHotKeyRef?
-        let hotKeyID = EventHotKeyID(signature: OSType(0x43_54_58_54) /* 'CTXT' */, id: id)
+        let hotKeyID = EventHotKeyID(signature: OSType(0x46_54_48_52) /* 'FTHR' */, id: id)
         RegisterEventHotKey(keyCode, modifiers, hotKeyID, GetApplicationEventTarget(), 0, &ref)
         hotKeyRefs.append(ref)
     }

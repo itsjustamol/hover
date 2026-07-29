@@ -2,9 +2,9 @@
 import PackageDescription
 
 let package = Package(
-    name: "Context",
+    name: "Feather",
     platforms: [.macOS(.v14)],
     targets: [
-        .executableTarget(name: "Context", path: "Sources/Context")
+        .executableTarget(name: "Feather", path: "Sources/Feather")
     ]
 )

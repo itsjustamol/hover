@@ -41,9 +41,12 @@ final class LookupPanel: NSPanel {
         hidesOnDeactivate = false
         isMovableByWindowBackground = true
         animationBehavior = .utilityWindow
-        // Only take key status when the user clicks the follow-up field —
-        // showing the panel never steals focus from the frontmost app.
-        becomesKeyOnlyIfNeeded = true
+        // The panel takes key status the moment it appears (Spotlight-style).
+        // Two reasons: keyboard focus lands in the follow-up field and Esc is
+        // captured without clicking first, and — because macOS renders
+        // key-window glass more opaque than idle glass — the material doesn't
+        // visibly "pop" when the input is first focused. The host app stays
+        // visually active throughout (non-activating panel).
 
         let hosting = NSHostingView(rootView: LookupView(model: model))
         hosting.frame = NSRect(x: 0, y: 0, width: Self.panelWidth, height: Self.minHeight)
@@ -68,6 +71,7 @@ final class LookupPanel: NSPanel {
         model.reset(query: query)
         position(at: screenPoint, height: Self.minHeight)
         orderFrontRegardless()
+        makeKey()
         installClickMonitor()
     }
 

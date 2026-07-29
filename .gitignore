@@ -1,5 +1,5 @@
 .build/
-Context.app/
+Feather.app/
 art/AppIcon.iconset/
 .DS_Store
 *.xcodeproj

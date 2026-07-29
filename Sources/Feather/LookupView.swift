@@ -163,8 +163,6 @@ private struct ContentHeightKey: PreferenceKey {
 
 /// Pre-Tahoe fallback: behind-window blur, same material as system popovers.
 private struct VisualEffectBackground: NSViewRepresentable {
-    // Note: the context type is spelled out because this module is itself
-    // named `Context`, which shadows SwiftUI's `Context` typealias.
     func makeNSView(context: NSViewRepresentableContext<VisualEffectBackground>) -> NSVisualEffectView {
         let view = NSVisualEffectView()
         view.material = .popover

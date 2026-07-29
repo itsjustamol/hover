@@ -1,11 +1,11 @@
 import SwiftUI
 
 @main
-struct ContextApp: App {
+struct FeatherApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
-        MenuBarExtra("Context", systemImage: "text.magnifyingglass") {
+        MenuBarExtra("Feather", systemImage: "text.magnifyingglass") {
             Button("Look Up Selection    ⇧⌘C") {
                 appDelegate.performLookup()
             }
@@ -14,7 +14,7 @@ struct ContextApp: App {
                 appDelegate.promptForAPIKey()
             }
             Divider()
-            Button("Quit Context") {
+            Button("Quit Feather") {
                 NSApp.terminate(nil)
             }
         }
