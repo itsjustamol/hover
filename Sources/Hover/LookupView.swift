@@ -89,7 +89,26 @@ struct LookupView: View {
                 ProgressView()
                     .controlSize(.small)
             }
+            closeButton
         }
+    }
+
+    /// Small ✕ with an "esc" hint — the discoverable way to close the popover.
+    private var closeButton: some View {
+        Button(action: { model.onClose?() }) {
+            HStack(spacing: 4) {
+                Image(systemName: "xmark")
+                    .font(.system(size: 8.5, weight: .bold))
+                Text("esc")
+                    .font(.system(size: 10, weight: .semibold))
+            }
+            .foregroundStyle(.secondary)
+            .padding(.horizontal, 7)
+            .padding(.vertical, 3.5)
+            .background(Capsule().fill(.quaternary.opacity(0.6)))
+        }
+        .buttonStyle(.plain)
+        .help("Close (Esc)")
     }
 
     private var isBusy: Bool {

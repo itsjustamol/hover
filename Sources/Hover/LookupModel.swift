@@ -33,6 +33,8 @@ final class LookupModel: ObservableObject {
     var apiMessages: [[String: String]] = []
     /// Set by the app delegate; called when the user submits a follow-up.
     var onFollowUp: ((String) -> Void)?
+    /// Set by the panel; called when the user clicks the close control.
+    var onClose: (() -> Void)?
 
     var canSubmitFollowUp: Bool {
         switch phase {

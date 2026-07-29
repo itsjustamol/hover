@@ -22,7 +22,6 @@ final class LookupPanel: NSPanel {
     let model = LookupModel()
     var onDismiss: (() -> Void)?
 
-    private var clickMonitor: Any?
     private var escGlobalMonitor: Any?
     private var escLocalMonitor: Any?
     private var cancellables: Set<AnyCancellable> = []
@@ -58,6 +57,10 @@ final class LookupPanel: NSPanel {
         hosting.frame = NSRect(x: 0, y: 0, width: Self.panelWidth, height: Self.minHeight)
         hosting.autoresizingMask = [.width, .height]
         contentView = hosting
+
+        model.onClose = { [weak self] in
+            self?.dismiss()
+        }
 
         model.$contentHeight
             .removeDuplicates()
@@ -123,13 +126,9 @@ final class LookupPanel: NSPanel {
 
     private func installClickMonitor() {
         removeClickMonitor()
-        // Global monitor: fires for clicks in *other* apps only, so clicks
-        // inside the panel don't dismiss it.
-        clickMonitor = NSEvent.addGlobalMonitorForEvents(
-            matching: [.leftMouseDown, .rightMouseDown, .otherMouseDown]
-        ) { [weak self] _ in
-            self?.dismiss()
-        }
+        // Clicking outside deliberately does NOT dismiss — the popover stays
+        // up so the user can read alongside other work. Only Esc, the ✕ esc
+        // control, or the hotkey toggle closes it.
         // Esc while focus is still in the other app (observed, not consumed).
         escGlobalMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] event in
             if event.keyCode == 53 { self?.dismiss() }
@@ -146,10 +145,9 @@ final class LookupPanel: NSPanel {
     }
 
     private func removeClickMonitor() {
-        for monitor in [clickMonitor, escGlobalMonitor, escLocalMonitor] {
+        for monitor in [escGlobalMonitor, escLocalMonitor] {
             if let monitor { NSEvent.removeMonitor(monitor) }
         }
-        clickMonitor = nil
         escGlobalMonitor = nil
         escLocalMonitor = nil
     }
