@@ -13,7 +13,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
 
-        // Ask for Accessibility access up front — needed to read the current
+        // Ask for Accessibility access up front, needed to read the current
         // selection (AX API) and for the copy-based fallback (posting ⌘C).
         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
         AXIsProcessTrustedWithOptions(options)
@@ -115,7 +115,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 model.apiMessages.append(["role": "assistant", "content": full])
                 model.phase = .done
             } catch is CancellationError {
-                // dismissed mid-stream — nothing to do
+                // dismissed mid-stream, nothing to do
             } catch {
                 model.fail(error.localizedDescription)
             }

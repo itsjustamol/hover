@@ -35,7 +35,7 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 </plist>
 PLIST
 
-# Sign with a real identity when available — gives the app a stable identity
+# Sign with a real identity when available, gives the app a stable identity
 # so the Accessibility grant survives rebuilds. Ad-hoc otherwise.
 IDENTITY=$(security find-identity -v -p codesigning 2>/dev/null \
     | sed -n 's/.*"\(Apple Development[^"]*\)".*/\1/p' | head -1)

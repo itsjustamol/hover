@@ -2,9 +2,10 @@ import AppKit
 import SwiftUI
 import Combine
 
-/// A transient, non-activating panel — behaves like the built-in Dictionary
-/// popover: appears at the cursor, never steals focus from the app you're in,
-/// and disappears when you click anywhere outside it.
+/// A floating, non-activating panel in the spirit of the built-in Dictionary
+/// popover: appears at the cursor and never steals focus from the app you're
+/// in. It stays up while you work and closes on Esc, the header's close
+/// control, or the hotkey toggle.
 final class LookupPanel: NSPanel {
     /// Width of the visible glass shapes.
     static let contentWidth: CGFloat = 440
@@ -48,8 +49,8 @@ final class LookupPanel: NSPanel {
         animationBehavior = .utilityWindow
         // The panel takes key status the moment it appears (Spotlight-style).
         // Two reasons: keyboard focus lands in the follow-up field and Esc is
-        // captured without clicking first, and — because macOS renders
-        // key-window glass more opaque than idle glass — the material doesn't
+        // captured without clicking first, and, because macOS renders
+        // key-window glass more opaque than idle glass, the material doesn't
         // visibly "pop" when the input is first focused. The host app stays
         // visually active throughout (non-activating panel).
 
@@ -71,8 +72,8 @@ final class LookupPanel: NSPanel {
             .store(in: &cancellables)
     }
 
-    // Key status is allowed (for typing follow-ups) but only "if needed" —
-    // the frontmost app keeps focus until the user clicks the input field.
+    // Key status is required for typing follow-ups and capturing Esc; the
+    // panel takes it on show (see init notes above).
     override var canBecomeKey: Bool { true }
     override var canBecomeMain: Bool { false }
 
@@ -126,14 +127,14 @@ final class LookupPanel: NSPanel {
 
     private func installClickMonitor() {
         removeClickMonitor()
-        // Clicking outside deliberately does NOT dismiss — the popover stays
+        // Clicking outside deliberately does NOT dismiss, the popover stays
         // up so the user can read alongside other work. Only Esc, the ✕ esc
         // control, or the hotkey toggle closes it.
         // Esc while focus is still in the other app (observed, not consumed).
         escGlobalMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] event in
             if event.keyCode == 53 { self?.dismiss() }
         }
-        // Esc while the panel itself is key (user is typing a follow-up) —
+        // Esc while the panel itself is key (user is typing a follow-up) -
         // consumed so it doesn't leak anywhere else.
         escLocalMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
             if event.keyCode == 53 {

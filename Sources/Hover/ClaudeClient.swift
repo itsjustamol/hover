@@ -1,6 +1,6 @@
 import Foundation
 
-/// Minimal streaming client for the Claude Messages API (raw HTTP + SSE —
+/// Minimal streaming client for the Claude Messages API (raw HTTP + SSE -
 /// there is no official Swift SDK).
 enum ClaudeClient {
     struct APIError: LocalizedError {
@@ -12,8 +12,8 @@ enum ClaudeClient {
     private static let model = "claude-opus-5"
 
     private static let systemPrompt = """
-    You are Hover, an inline look-up popover on macOS — like the built-in \
-    Dictionary popup, but powered by AI. The user selected some text on screen \
+    You are Hover, an inline look-up popover on macOS, like the built-in \
+    Dictionary popup but powered by AI. The user selected some text on screen \
     and asked what it is.
 
     Explain the selection concisely:
@@ -22,9 +22,10 @@ enum ClaudeClient {
     - Code, a command, or an error message: explain what it does or means.
     - A sentence or passage: explain or summarize the key idea.
 
-    Keep it to 2–5 short sentences of plain text. No markdown headings, no \
+    Keep it to 2-5 short sentences of plain text. No markdown headings, no \
     bullet lists unless genuinely clearer, no preamble like "This is" repeated \
-    back — get straight to the explanation.
+    back. Get straight to the explanation. Never use em dashes; use commas, \
+    colons, or separate sentences instead.
 
     The user may ask follow-up questions about the selection; answer those \
     just as concisely.
@@ -62,7 +63,7 @@ enum ClaudeClient {
             "model": model,
             "max_tokens": 32,
             "output_config": ["effort": "low"],
-            "system": "Write a 2-5 word title describing the user's text. Reply with only the title — no quotes, no trailing punctuation.",
+            "system": "Write a 2-5 word title describing the user's text. Reply with only the title: no quotes, no trailing punctuation, no em dashes.",
             "messages": [
                 ["role": "user", "content": String(text.prefix(2000))]
             ],

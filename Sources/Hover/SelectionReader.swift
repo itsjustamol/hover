@@ -11,7 +11,7 @@ enum SelectionReader {
         return copyFallbackSelection()
     }
 
-    /// Preferred path: ask the focused UI element for its selected text —
+    /// Preferred path: ask the focused UI element for its selected text -
     /// directly, then via selected-range → string (helps some apps that
     /// don't populate kAXSelectedText).
     private static func accessibilitySelection() -> String? {

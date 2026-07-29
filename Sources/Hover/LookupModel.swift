@@ -19,7 +19,7 @@ final class LookupModel: ObservableObject {
 
     /// The raw selected text.
     @Published var query: String = ""
-    /// Header title — the selection, or an AI-generated title for long selections.
+    /// Header title, the selection, or an AI-generated title for long selections.
     @Published var title: String = ""
     @Published var exchanges: [Exchange] = []
     @Published var phase: Phase = .loading

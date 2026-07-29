@@ -4,7 +4,7 @@ import Security
 /// Stores the Claude API key as a generic password in the login keychain.
 enum Keychain {
     private static let service = "com.amol.hover.claude-api-key"
-    /// Pre-rename service names — read once and migrate.
+    /// Pre-rename service names, read once and migrate.
     private static let legacyServices = [
         "com.amol.feather.claude-api-key",
         "com.amol.context.claude-api-key",

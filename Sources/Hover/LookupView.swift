@@ -1,7 +1,7 @@
 import SwiftUI
 import AppKit
 
-/// The popover content — native SwiftUI in the macOS 26 Liquid Glass style:
+/// The popover content, native SwiftUI in the macOS 26 Liquid Glass style:
 /// a glass sheet with the header + streamed transcript, and a separate
 /// floating glass capsule for follow-up questions, grouped in a
 /// GlassEffectContainer so the shapes blend the way system UI does.
@@ -93,7 +93,7 @@ struct LookupView: View {
         }
     }
 
-    /// Small ✕ with an "esc" hint — the discoverable way to close the popover.
+    /// Small ✕ with an "esc" hint, the discoverable way to close the popover.
     private var closeButton: some View {
         Button(action: { model.onClose?() }) {
             HStack(spacing: 4) {

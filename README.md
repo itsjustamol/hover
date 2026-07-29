@@ -1,25 +1,26 @@
 # Hover
 
-An inline AI look-up for macOS — like the built-in Dictionary popover (⌃⌘D),
-but answered by Claude. Select any word, name, code snippet, or error message
-in any app, press **⇧⌘C**, and a transient Liquid Glass popover appears at
-your cursor with a short explanation. Ask follow-ups inline, then click away
-(or press Esc) and it's gone. It never steals focus from the app you're in.
+An inline AI look-up for macOS, in the spirit of the built-in Dictionary
+popover (⌃⌘D) but answered by Claude. Select any word, name, code snippet, or
+error message in any app and press **⇧⌘C**. A Liquid Glass popover appears at
+your cursor with a short explanation. Ask follow-ups inline, then press Esc
+when you're done. It never steals focus from the app you're in.
 
 ## Features
 
-- **Works everywhere** — reads the selection via the Accessibility API, with a
+- **Works everywhere.** Reads the selection via the Accessibility API, with a
   clipboard-preserving ⌘C fallback for apps with poor AX support (GPU-rendered
   terminals, some Electron apps).
-- **Transient, Dictionary-style** — a non-activating panel at your cursor;
-  outside click, Esc, or ⇧⌘C dismisses it. The host app keeps focus.
-- **Inline follow-up chat** — type in the glass capsule below the answer to
+- **Stays out of your way.** A non-activating panel at your cursor; the host
+  app keeps working underneath. Close it with Esc, the ✕ ESC button, or ⇧⌘C.
+  Drag the glass to reposition it.
+- **Inline follow-up chat.** Type in the glass capsule below the answer to
   continue the conversation without leaving the popover.
-- **Streaming answers** — tokens render as they arrive; the panel grows with
+- **Streaming answers.** Tokens render as they arrive; the panel grows with
   the content, then scrolls.
-- **AI-generated titles** — long selections get a short generated header
+- **AI-generated titles.** Long selections get a short generated header
   instead of a wall of text.
-- **Native UI** — SwiftUI with macOS 26 Liquid Glass (`glassEffect` +
+- **Native UI.** SwiftUI with macOS 26 Liquid Glass (`glassEffect` and
   `GlassEffectContainer`), falling back to the classic popover material on
   older systems.
 
@@ -36,19 +37,19 @@ Hover is a menu bar app (no Dock icon).
 
 ## Setup (one time)
 
-1. **API key** — menu bar icon → *Set Claude API Key…* (stored in your login
+1. **API key**: menu bar icon → *Set Claude API Key…* (stored in your login
    keychain). An `ANTHROPIC_API_KEY` environment variable takes precedence.
-2. **Accessibility** — allow Hover under *System Settings → Privacy &
+2. **Accessibility**: allow Hover under *System Settings → Privacy &
    Security → Accessibility*, then relaunch. Required to read the selection.
 
 > `build-app.sh` signs with your Apple Development certificate when one is
 > available (falling back to ad-hoc). A stable signing identity is what makes
-> the Accessibility grant survive rebuilds — with ad-hoc signing you'll need
+> the Accessibility grant survive rebuilds; with ad-hoc signing you'll need
 > to re-grant after each build.
 
 ## Configuration
 
-Everything is code — small, single-purpose files:
+Everything is code, in small single-purpose files:
 
 | What | Where |
 |---|---|
@@ -67,4 +68,4 @@ keychain.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
